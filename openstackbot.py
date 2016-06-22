@@ -87,7 +87,7 @@ def findMatchRecursive(tree, command):
     if highestConfidence >= MIN_GUESS_CONFIDENCE:
         return findMatchRecursive(tree[confidence[highestConfidence]], command)
     else:
-        return tree['default'] if 'default' in tree else None
+        return tree['default']
 
 def handle_command(command, channel):
     """
@@ -103,9 +103,6 @@ def handle_command(command, channel):
         status = random.choice(statuses)
         author = "Mark Twain" if "Mark" in twitter_handle else "Kurt Vonnegut"
         response = status['text'] + " -_" + author + "_"
-    else:
-        response = ("hmm..not sure what you mean. could you rephrase "
-                    "with *latest version* and the package name?")
 
     slack_client.api_call("chat.postMessage", channel=channel,
                           text=response, as_user=True)
